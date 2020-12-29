@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  rust-account-management-api:
+    tty: true
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+      target: develop-stage
+    environment:
+      - USER=app
+    volumes:
+      - .:/app
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/app/root/target
+    container_name: rust-account-management-api
+    ports:
+      - 3001:3000
+    command: /bin/sh -c "cargo watch -x run"
+    depends_on:
+      - rust-account-management-postgres
+  rust-account-management-postgres:
+    tty: true
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: docker/db/Dockerfile
+    container_name: rust-account-management-postgres
+    ports:
+      - 5434:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=rust_account_management
+    volumes:
+      - $PWD/sql:/docker-entrypoint-initdb.d
+
+volumes:
+  cargo-cache:
+  target-cache:
