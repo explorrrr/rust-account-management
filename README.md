@@ -7,7 +7,7 @@
 - docker
 #### 構築手順
 - 環境変数ファイルの作成
-- ```rust-account-management/.envを作成する```
+- ```rust-account-management/root/env/.envを作成する```
 
 ファイル内容
 ```
@@ -22,7 +22,7 @@ PG.POOL.MAX_SIZE=16
 
 構築コマンド
 ```
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ### テスト実行

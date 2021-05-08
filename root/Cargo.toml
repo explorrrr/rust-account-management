@@ -9,9 +9,12 @@ edition = "2018"
 [dependencies]
 actix-rt = "1.0"
 actix-web = "2.0"
-config = "0.10.1"
+envy = "0.3.3"
 deadpool-postgres = "0.5.0"
-dotenv = "0.15.0"
 failure = "0.1.6"
-serde = { version = "1.0.104", features = ["derive"] }
+serde = "1.0.104"
+serde_derive = "1.0.104"
 tokio-postgres = "0.5.1"
+
+[profile.release]
+panic = "abort"

@@ -10,6 +10,8 @@ services:
       target: develop-stage
     environment:
       - USER=app
+    env_file:
+      - root/env/.env
     volumes:
       - .:/app
       - cargo-cache:/usr/local/cargo/registry
@@ -17,7 +19,7 @@ services:
     container_name: rust-account-management-api
     ports:
       - 3001:3000
-    command: /bin/sh -c "cargo watch -x run"
+    command: /bin/bash -c "cargo watch -x run"
     depends_on:
       - rust-account-management-postgres
   rust-account-management-postgres:
